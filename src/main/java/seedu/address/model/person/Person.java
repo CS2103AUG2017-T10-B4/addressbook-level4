@@ -111,6 +111,10 @@ public class Person implements ReadOnlyPerson {
         return Collections.unmodifiableSet(tags.get().toSet());
     }
 
+    public void deleteTag(Tag toDelete) throws UniqueTagList.DuplicateTagException {
+        tags.get().delete(toDelete);
+    }
+
     public ObjectProperty<UniqueTagList> tagProperty() {
         return tags;
     }
