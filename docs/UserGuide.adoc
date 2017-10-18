@@ -132,6 +132,26 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
+=== Adding a remark to a person : `remark`
+
+Add a remark to a specific person from the address book. +
+Format: `remark INDEX r/REMARK`
+
+****
+* Add a remark to the person at the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`remark 2 r/owe money` +
+Adds a "owe money" remark at the end of the contact.
+* `find Betsy` +
+`remark 1 r/best friend` +
+Add a "best friend" remark to the 1st person in the results of the `find` command.
+
 === Selecting a person : `select`
 
 Selects the person identified by the index number used in the last person listing. +
@@ -270,6 +290,7 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
+* *Remark* : remark INDEX r/REMARK
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
