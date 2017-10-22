@@ -14,6 +14,8 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
+== Introduction
+
 == Setting up
 
 === Prerequisites
@@ -525,8 +527,10 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
+== Appendix
+
 [appendix]
-== Suggested Programming Tasks to Get Started
+=== Suggested Programming Tasks to Get Started
 
 Suggested path for new programmers:
 
@@ -534,12 +538,12 @@ Suggested path for new programmers:
 
 2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. The section link:#creating-a-new-command-code-remark-code[Creating a new command: `remark`] explains how to go about adding such a feature.
 
-=== Improving each component
+==== Improving each component
 
 Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
 
 [discrete]
-==== `Logic` component
+===== `Logic` component
 
 [TIP]
 Do take a look at the link:#logic-component[Design: Logic Component] section before attempting to modify the `Logic` component.
@@ -556,7 +560,7 @@ Do take a look at the link:#logic-component[Design: Logic Component] section bef
 ****
 
 [discrete]
-==== `Model` component
+===== `Model` component
 
 [TIP]
 Do take a look at the link:#model-component[Design: Model Component] section before attempting to modify the `Model` component.
@@ -573,7 +577,7 @@ Do take a look at the link:#model-component[Design: Model Component] section bef
 ****
 
 [discrete]
-==== `Ui` component
+===== `Ui` component
 
 [TIP]
 Do take a look at the link:#ui-component[Design: UI Component] section before attempting to modify the `UI` component.
@@ -637,7 +641,7 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 
 [discrete]
-==== `Storage` component
+===== `Storage` component
 
 [TIP]
 Do take a look at the link:#storage-component[Design: Storage Component] section before attempting to modify the `Storage` component.
@@ -652,11 +656,11 @@ Do take a look at the link:#storage-component[Design: Storage Component] section
 ** See this https://github.com/se-edu/addressbook-level4/pull/594/files[PR] for the full solution.
 ****
 
-=== Creating a new command: `remark`
+==== Creating a new command: `remark`
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
-==== Description
+===== Description
 Edits the remark for a person specified in the `INDEX`. +
 Format: `remark INDEX r/[REMARK]`
 
@@ -667,9 +671,9 @@ Edits the remark for the first person to `Likes to drink coffee.`
 * `remark 1 r/` +
 Removes the remark for the first person.
 
-==== Step-by-step Instructions
+===== Step-by-step Instructions
 
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
+====== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
 Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
 
 **Main:**
@@ -682,7 +686,7 @@ Let's start by teaching the application how to parse a `remark` command. We will
 . Add `RemarkCommandTest` that tests that `executeUndoableCommand()` throws an Exception.
 . Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
+====== [Step 2] Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
 
 **Main:**
@@ -698,7 +702,7 @@ Let's teach the application to parse arguments that our `remark` command will ac
 for `RemarkCommandParser`.
 . Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
 
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
+====== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
 Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
 
 **Main:**
@@ -710,7 +714,7 @@ Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui
 
 . Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
 
-===== [Step 4] Model: Add `Remark` class
+====== [Step 4] Model: Add `Remark` class
 We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/ReadOnlyPerson.java[`ReadOnlyPerson`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
 
 **Main:**
@@ -722,7 +726,7 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 
 . Add test for `Remark`, to test the `Remark#equals()` method.
 
-===== [Step 5] Model: Modify `ReadOnlyPerson` to support a `Remark` field
+====== [Step 5] Model: Modify `ReadOnlyPerson` to support a `Remark` field
 Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/ReadOnlyPerson.java[`ReadOnlyPerson`].
 
 **Main:**
@@ -731,7 +735,7 @@ Now we have the `Remark` class, we need to actually use it inside link:{repoURL}
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
 . Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
 
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
+====== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
 We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
 
 **Main:**
@@ -743,7 +747,7 @@ We now have `Remark` s for `Person` s, but they will be gone when we exit the ap
 
 . Fix `validAddressBook.xml` such that the XML tests will not fail due to a missing `<remark>` element.
 
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
+====== [Step 7] Ui: Connect `Remark` field to `PersonCard`
 Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
 
 **Main:**
@@ -755,7 +759,7 @@ Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.jav
 . Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the remark label.
 . In link:{repoURL}/src/test/java/seedu/address/ui/PersonCardTest.java[`PersonCardTest`], call `personWithTags.setRemark(ALICE.getRemark())` to test that changes in the link:{repoURL}/src/main/java/seedu/address/model/person/ReadOnlyPerson.java[`Person`] 's remark correctly updates the corresponding link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`].
 
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
+====== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
 
 **Main:**
@@ -766,12 +770,12 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 . Update `RemarkCommandTest` to test that the `execute()` logic works.
 
-==== Full Solution
+===== Full Solution
 
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
-== User Stories
+=== User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -837,12 +841,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 
 [appendix]
-== Use Cases
+=== Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+==== Use case: Delete person
 
 *MSS*
 
@@ -868,7 +872,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Add person
+==== Use case: Add person
 
 1. User requests to add a person by entering information.
 2. AddressBook adds the person.
@@ -876,7 +880,7 @@ Use case resumes at step 2.
 Use case ends.
 
 [discrete]
-=== Use Case: Clear
+==== Use Case: Clear
 
 1. User requests to clear the AddressBook.
 2. AddressBook clears all the contacts.
@@ -884,7 +888,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case: Edit person
+==== Use Case: Edit person
 
 1. User requests to edit a contact in the AddressBook by listing the required parameters.
 2. AddressBook edits the contact.
@@ -892,7 +896,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case: Find name
+==== Use Case: Find name
 
 1. User requests to find a contact by entering their name or part of their name.
 2. AddressBook returns the contact's details and the location on the list.
@@ -900,7 +904,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case: Help
+==== Use Case: Help
 
 1. User requests to display description of every available command.
 2. AddressBook opens the help page.
@@ -908,7 +912,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case: History
+==== Use Case: History
 
 1. User request to display previous commands.
 2. AddressBook displays a list of previously entered commands.
@@ -917,7 +921,7 @@ Use case ends.
 
 
 [appendix]
-== Non Functional Requirements
+=== Non Functional Requirements
 
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
@@ -931,7 +935,7 @@ Use case ends.
 
 
 [appendix]
-== Glossary
+=== Glossary
 
 [[mainstream-os]]
 Mainstream OS
@@ -948,7 +952,7 @@ A contact detail that is not meant to be shared with others
 ....
 
 [appendix]
-== Product Survey
+=== Product Survey
 
 *Product Name*
 
