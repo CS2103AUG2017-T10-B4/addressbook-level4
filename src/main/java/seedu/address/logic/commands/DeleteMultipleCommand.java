@@ -24,7 +24,6 @@ public class DeleteMultipleCommand extends UndoableCommand {
     private final ArrayList<Index> arrayOfIndex;
 
     public DeleteMultipleCommand(ArrayList<Index> arrayOfIndex) {
-        
         this.arrayOfIndex = arrayOfIndex;
     }
 
@@ -34,7 +33,6 @@ public class DeleteMultipleCommand extends UndoableCommand {
         String listOfDeletedContacts = "";
         
         for(int n = 0; n < arrayOfIndex.size(); n++ ) {
-
             Index targetIndex = arrayOfIndex.get(n);
             List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
