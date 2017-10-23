@@ -31,7 +31,6 @@ public class DeleteMultipleCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         String listOfDeletedContacts = "";
-        
         for(int n = 0; n < arrayOfIndex.size(); n++ ) {
             Index targetIndex = arrayOfIndex.get(n);
             List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
