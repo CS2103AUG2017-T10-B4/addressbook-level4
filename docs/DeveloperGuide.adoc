@@ -16,6 +16,11 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
+This developer guide is designed for developers interested in understanding and developing new features and enhancements for the YellowPages address book application. This guide is a reference manual for developers looking to:
+
+ * Enhance the current YellowPages application for specific operating requirements.
+ * Extend the functionality of the current YellowPages application.
+
 == Setting up
 
 === Prerequisites
@@ -100,17 +105,17 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 [TIP]
 The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for:
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
+* Initializing the components in the correct sequence, and connects them up with each other at app launch.
+* Shutting down the components and invokes cleanup method where necessary at shut-down.
 
 link:#common-classes[*`Commons`*] represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four aditional components.
 
 * link:#ui-component[*`UI`*] : The UI of the App.
 * link:#logic-component[*`Logic`*] : The command executor.
@@ -453,7 +458,7 @@ See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to dep
 
 We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
 
-Here are the steps to convert the project documentation files to PDF format.
+Here are the steps used to convert the project documentation files to PDF format.
 
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
@@ -524,7 +529,7 @@ We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor]
 
 === Making a Release
 
-Here are the steps to create a new release.
+Here are the steps for creating a new release.
 
 .  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
@@ -800,6 +805,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |add remarks to a person | store additional information about that person
+
 |`* * *` |user |access the help function |use the address book more efficiently.
 
 |`* *` |user |add multiple contacts at once |save time in adding contacts to address book.
@@ -809,7 +816,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |find a person’s contact details by specifying parameters other than name |person can still be found in event of naming mistake.
 
 |`* *` |user |find a person’s special dates by specifying his name |can prepare something special for him.
-
 
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
 
@@ -943,6 +949,7 @@ Use case ends.
 .  System should be easy to maintain in event of malfunction.
 
 
+
 [appendix]
 === Glossary
 
@@ -960,6 +967,7 @@ Private contact detail
 A contact detail that is not meant to be shared with others
 ....
 
+
 [appendix]
 === Product Survey
 
@@ -973,6 +981,5 @@ Pros:
 * ...
 
 Cons:
+=======
 
-* ...
-* ...
