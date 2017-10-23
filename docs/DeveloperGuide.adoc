@@ -16,6 +16,11 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
+This developer guide is designed for developers interested in understanding and developing new features and enhancements for the YellowPages address book application. This guide is a reference manual for developers looking to:
+
+ * Enhance the current YellowPages application for specific operating requirements.
+ * Extend the functionality of the current YellowPages application.
+
 == Setting up
 
 === Prerequisites
