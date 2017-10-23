@@ -235,10 +235,44 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Add multiple contacts at once : `Add range` (Coming in v1.5)
+=== Add multiple contacts at once : `addMulTsv` (Since v1.2)
 
 Add multiple contacts to addressBook at once. +
-Format: `Add [numberOfContacts] [Details]`
+Input format: `addMulTsv TSV_PATH`
+
+****
+* Adds multiple contacts in a text file at the specified `tsv_path`
+* An acceptable file must be exported from a conventional Excel file in `Text (Tab delimited)` file type
+* The first line must contains the following values, in this specific order, separated by tab: `name` `phone` `email` `address` `tag`
+* The following lines must contains the columns corresponding to the first line
+****
+
+A valid format can be as follow
+
+|===
+|name |phone |email |address |tag
+
+|John Doe
+|98765432
+|johnd@example.com
+|John street, block 123, #01-01
+|friend, neighbor
+
+|Betsy Crowe
+|1234567
+|betsycrowe@example.com
+|Newgate Prison
+|friend, criminal
+|===
+
+Output format: `NUMBER OF SUCCESSFULLY ADDED PEOPLE` new person (people) added, `NUMBER OF DUPLICATED PEOPLE`
+new person (people) duplicated, `NUMBER OF UNSUCCESSFULLY ADDED PEOPLE` entry (entries) failed:
+`LIST OF INDICES THAT WERE UNSUCCESSFULLY ADDED`
+
+****
+* People which already exist in the address book will not be added again
+* People which miss one or more required fields will not be added
+****
 
 === Delete multiple contacts at once: `deleteMul` (Since v1.2)
 
