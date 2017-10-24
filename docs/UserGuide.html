@@ -433,7 +433,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>By: <code>Team SE-EDU</code>      Since: <code>Jun 2016</code>      Licence: <code>MIT</code></p>
+<p>By: <code>CS2103-T10-B4</code>      Since: <code>Sept 2017</code>      Licence: <code>MIT</code></p>
 </div>
 </div>
 <div id="toc" class="toc">
@@ -447,14 +447,23 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_listing_all_persons_code_list_code">2.3. Listing all persons : <code>list</code></a></li>
 <li><a href="#_editing_a_person_code_edit_code">2.4. Editing a person : <code>edit</code></a></li>
 <li><a href="#_locating_persons_by_name_code_find_code">2.5. Locating persons by name: <code>find</code></a></li>
-<li><a href="#_deleting_a_person_code_delete_code">2.6. Deleting a person : <code>delete</code></a></li>
-<li><a href="#_selecting_a_person_code_select_code">2.7. Selecting a person : <code>select</code></a></li>
-<li><a href="#_listing_entered_commands_code_history_code">2.8. Listing entered commands : <code>history</code></a></li>
-<li><a href="#_undoing_previous_command_code_undo_code">2.9. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#_redoing_the_previously_undone_command_code_redo_code">2.10. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#_clearing_all_entries_code_clear_code">2.11. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#_exiting_the_program_code_exit_code">2.12. Exiting the program : <code>exit</code></a></li>
-<li><a href="#_saving_the_data">2.13. Saving the data</a></li>
+<li><a href="#_locating_person_by_number_code_findnum_code_since_v1_2">2.6. Locating person by number: <code>findnum</code> (Since v1.2)</a></li>
+<li><a href="#_deleting_a_person_code_delete_code">2.7. Deleting a person : <code>delete</code></a></li>
+<li><a href="#_selecting_a_person_code_select_code">2.8. Selecting a person : <code>select</code></a></li>
+<li><a href="#_listing_entered_commands_code_history_code">2.9. Listing entered commands : <code>history</code></a></li>
+<li><a href="#_undoing_previous_command_code_undo_code">2.10. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#_redoing_the_previously_undone_command_code_redo_code">2.11. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#_clearing_all_entries_code_clear_code">2.12. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#_add_multiple_contacts_at_once_code_add_range_code_coming_in_v1_5">2.13. Add multiple contacts at once : <code>Add range</code> (Coming in v1.5)</a></li>
+<li><a href="#_delete_multiple_contacts_at_once_code_deletemul_code_since_v1_2">2.14. Delete multiple contacts at once: <code>deleteMul</code> (Since v1.2)</a></li>
+<li><a href="#_add_photos_coming_in_v1_5">2.15. Add photos : (Coming in v1.5)</a></li>
+<li><a href="#_delete_tag_coming_in_v1_5">2.16. Delete Tag : (Coming in v1.5)</a></li>
+<li><a href="#_clear_tag_coming_in_v1_5">2.17. Clear Tag : (Coming in v1.5)</a></li>
+<li><a href="#_retrieve_coming_in_v1_5">2.18. Retrieve : (Coming in v1.5)</a></li>
+<li><a href="#_moving_contacts_code_move_code_coming_in_v2_0">2.19. Moving contacts : <code>move</code> (Coming in v2.0)</a></li>
+<li><a href="#_export_contact_data_code_export_code_coming_in_v2_0">2.20. Export contact data : <code>export</code> (Coming in v2.0)</a></li>
+<li><a href="#_exiting_the_program_code_exit_code">2.21. Exiting the program : <code>exit</code></a></li>
+<li><a href="#_saving_the_data">2.22. Saving the data</a></li>
 </ul>
 </li>
 <li><a href="#_faq">3. FAQ</a></li>
@@ -689,7 +698,46 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>J
 </div>
 </div>
 <div class="sect2">
-<h3 id="_deleting_a_person_code_delete_code">2.6. Deleting a person : <code>delete</code></h3>
+<h3 id="_locating_person_by_number_code_findnum_code_since_v1_2">2.6. Locating person by number: <code>findnum</code> (Since v1.2)</h3>
+<div class="paragraph">
+<p>Finds persons whose phone numbers contain any of the given keywords.<br>
+Format: <code>findnum KEYWORD [MORE_KEYWORDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The order of the keywords does not matter (eg: <code>98765432 67156715</code> will match <code>67156715 98765432</code>).</p>
+</li>
+<li>
+<p>Only the number is searched.</p>
+</li>
+<li>
+<p>Only full numbers will be matched (eg: <code>6715671</code> will not match <code>67156715</code>).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>findnum 67156715</code><br>
+Returns the contact whose phone number is <code>67157615</code></p>
+</li>
+<li>
+<p><code>findnum 67156715 98765432 67772655</code><br>
+Returns the contacts whose phone numbers are <code>67156715</code>, <code>98765432</code> and <code>67772655</code> respectively.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deleting_a_person_code_delete_code">2.7. Deleting a person : <code>delete</code></h3>
 <div class="paragraph">
 <p>Deletes the specified person from the address book.<br>
 Format: <code>delete INDEX</code></p>
@@ -730,7 +778,7 @@ Deletes the 1st person in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_selecting_a_person_code_select_code">2.7. Selecting a person : <code>select</code></h3>
+<h3 id="_selecting_a_person_code_select_code">2.8. Selecting a person : <code>select</code></h3>
 <div class="paragraph">
 <p>Selects the person identified by the index number used in the last person listing.<br>
 Format: <code>select INDEX</code></p>
@@ -771,7 +819,7 @@ Selects the 1st person in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_listing_entered_commands_code_history_code">2.8. Listing entered commands : <code>history</code></h3>
+<h3 id="_listing_entered_commands_code_history_code">2.9. Listing entered commands : <code>history</code></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -792,7 +840,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_undoing_previous_command_code_undo_code">2.9. Undoing previous command : <code>undo</code></h3>
+<h3 id="_undoing_previous_command_code_undo_code">2.10. Undoing previous command : <code>undo</code></h3>
 <div class="paragraph">
 <p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -837,7 +885,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="_redoing_the_previously_undone_command_code_redo_code">2.10. Redoing the previously undone command : <code>redo</code></h3>
+<h3 id="_redoing_the_previously_undone_command_code_redo_code">2.11. Redoing the previously undone command : <code>redo</code></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -869,21 +917,96 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="_clearing_all_entries_code_clear_code">2.11. Clearing all entries : <code>clear</code></h3>
+<h3 id="_clearing_all_entries_code_clear_code">2.12. Clearing all entries : <code>clear</code></h3>
 <div class="paragraph">
 <p>Clears all entries from the address book.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exiting_the_program_code_exit_code">2.12. Exiting the program : <code>exit</code></h3>
+<h3 id="_add_multiple_contacts_at_once_code_add_range_code_coming_in_v1_5">2.13. Add multiple contacts at once : <code>Add range</code> (Coming in v1.5)</h3>
+<div class="paragraph">
+<p>Add multiple contacts to addressBook at once.<br>
+Format: <code>Add [numberOfContacts] [Details]</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_multiple_contacts_at_once_code_deletemul_code_since_v1_2">2.14. Delete multiple contacts at once: <code>deleteMul</code> (Since v1.2)</h3>
+<div class="paragraph">
+<p>Deletes multiple specified contacts from addressBook at once.<br>
+Format: <code>deleteMul INDEXES</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the contacts at the specified <code>indexes</code>.</p>
+</li>
+<li>
+<p>The indexes refers to the index number shown in the most recent listing.</p>
+</li>
+<li>
+<p>Note that indexes can refer to multiple indexes (ie: You can list more than one index under this one parameter). See examples below for more clarification.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;..</p>
+</li>
+<li>
+<p>Note that when listing multiple indexes, you will have to list the indexes <strong>in ascending order</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_add_photos_coming_in_v1_5">2.15. Add photos : (Coming in v1.5)</h3>
+<div class="paragraph">
+<p>Add photos to contact details in addressBook.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_tag_coming_in_v1_5">2.16. Delete Tag : (Coming in v1.5)</h3>
+<div class="paragraph">
+<p>Delete specific tag from all contacts.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_clear_tag_coming_in_v1_5">2.17. Clear Tag : (Coming in v1.5)</h3>
+<div class="paragraph">
+<p>Clear all tags from specific contact.<br></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_retrieve_coming_in_v1_5">2.18. Retrieve : (Coming in v1.5)</h3>
+<div class="paragraph">
+<p>Retrieve recently deleted list for past 3 days/past 30 contacts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_moving_contacts_code_move_code_coming_in_v2_0">2.19. Moving contacts : <code>move</code> (Coming in v2.0)</h3>
+<div class="paragraph">
+<p>Move designated contacts from one group to another group.<br>
+Format: <code>move</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_export_contact_data_code_export_code_coming_in_v2_0">2.20. Export contact data : <code>export</code> (Coming in v2.0)</h3>
+<div class="paragraph">
+<p>Export contact data from addressBook to google calendar.<br>
+Format: <code>export</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exiting_the_program_code_exit_code">2.21. Exiting the program : <code>exit</code></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_saving_the_data">2.13. Saving the data</h3>
+<h3 id="_saving_the_data">2.22. Saving the data</h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -950,7 +1073,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-11 15:05:53 Malay Peninsula Standard Time
+Last updated 2017-10-19 10:11:56 Malay Peninsula Standard Time
 </div>
 </div>
 </body>
