@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= YellowPages - Developer Guide
 :toc:
 :toc-title: Table of Contents
 :toc-placement: preamble
