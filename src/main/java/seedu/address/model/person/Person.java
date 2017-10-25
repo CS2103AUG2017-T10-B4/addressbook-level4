@@ -45,8 +45,8 @@ public class Person implements ReadOnlyPerson {
      * Creates a copy of the given ReadOnlyPerson.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getRemark(), source.getWebsite(),
-                source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getRemark(),
+                source.getWebsite(), source.getTags());
     }
 
     public void setName(Name name) {
@@ -129,7 +129,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public Website getWebsite(){
+    public Website getWebsite() {
         return website.get();
     }
 
@@ -163,7 +163,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, website, tags);
     }
 
     @Override
