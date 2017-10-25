@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= YellowPages - Developer Guide
 :toc:
 :toc-title: Table of Contents
 :toc-placement: preamble
@@ -12,16 +12,16 @@ endif::[]
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :repoURL: https://github.com/CS2103AUG2017-T10-B4/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103-T10-B4`      Since: `Sept 2017`      Licence: `MIT`
 
-== Introduction
+== *Introduction*
 
 This developer guide is designed for developers interested in understanding and developing new features and enhancements for the YellowPages address book application. This guide is a reference manual for developers looking to:
 
  * Enhance the current YellowPages application for specific operating requirements.
  * Extend the functionality of the current YellowPages application.
 
-== Setting up
+== *Setting up*
 
 === Prerequisites
 
@@ -93,7 +93,7 @@ When you are ready to start coding,
 1. Get some sense of the overall design by reading the link:#architecture[Architecture] section.
 2. Take a look at the section link:#suggested-programming-tasks-to-get-started[Suggested Programming Tasks to Get Started].
 
-== Design
+== *Design*
 
 === Architecture
 
@@ -221,7 +221,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
-== Implementation
+== *Implementation*
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -413,11 +413,11 @@ In the `DeleteMultipleCommand` class, the commandResult method is used which com
 
 Recently deleted command is used to allow the user to have a list of the past 30 recently deleted contacts and their details.
 
-By keying in the command word "recentlyDel", the command word will be detected in the `AddressBookParser` class where the arguments (indexes in this case) will be passed over to the `RecentlyDeletedCommand` class.
+By keying in the command word `recentlyDel`, the command word will be detected in the `AddressBookParser` class, and it will be brought over to the `RecentlyDeletedCommand` class.
 
-We will now create a 'LinkedList<Person> RecentlyDeletedQueue = new LinkedList<>();' to store the recently deleted contacts for up to the past 30 contacts.
+We will now create a `LinkedList<Person> RecentlyDeletedQueue = new LinkedList<>();` to store the recently deleted contacts for up to the past 30 contacts.
 
-In the 'RecentlyDeletedCommand' class, the commandResult method is used which will show the deleted contacts.
+In the `RecentlyDeletedCommand` class, the `CommandResult` method is used which will show the deleted contacts.
 
 === Logging
 
@@ -438,7 +438,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-== Documentation
+== *Documentation*
 
 We use asciidoc for writing documentation.
 
@@ -468,7 +468,7 @@ Here are the steps used to convert the project documentation files to PDF format
 image::chrome_save_as_pdf.png[width="300"]
 _Figure 5.6.1 : Saving documentation as PDF files in Chrome_
 
-== Testing
+== *Testing*
 
 === Running Tests
 
@@ -517,7 +517,7 @@ e.g. `seedu.address.logic.LogicManagerTest`
 * Reason: One of its dependencies, `UserGuide.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
 
-== Dev Ops
+== *Dev Ops*
 
 === Build Automation
 
@@ -542,7 +542,7 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-== Appendix
+== *Appendix*
 
 [appendix]
 === Suggested Programming Tasks to Get Started
