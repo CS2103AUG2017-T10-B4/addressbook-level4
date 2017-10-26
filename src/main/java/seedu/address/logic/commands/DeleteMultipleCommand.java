@@ -5,9 +5,17 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.RecentlyDeletedQueue;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+
+/**
+ * Deletes a person identified using it's last displayed index from the address book.
+ */
 
 public class DeleteMultipleCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "deleteMul";
@@ -24,7 +32,6 @@ public class DeleteMultipleCommand extends UndoableCommand {
     private final ArrayList<Index> arrayOfIndex;
 
     public DeleteMultipleCommand(ArrayList<Index> arrayOfIndex) {
-        
         this.arrayOfIndex = arrayOfIndex;
     }
 
@@ -32,8 +39,8 @@ public class DeleteMultipleCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         String listOfDeletedContacts = "";
-        
-        for(int n = 0; n < arrayOfIndex.size(); n++ ) {
+
+        for (int n = 0; n < arrayOfIndex.size(); n++) {
 
             Index targetIndex = arrayOfIndex.get(n);
             List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
@@ -43,16 +50,21 @@ public class DeleteMultipleCommand extends UndoableCommand {
             }
 
             ReadOnlyPerson personToDelete = lastShownList.get(targetIndex.getZeroBased());
-            listOfDeletedContacts = listOfDeletedContacts + ", " + personToDelete.getName();
+            if (n == 0) {
+                listOfDeletedContacts = listOfDeletedContacts + personToDelete.getName();
+            } else {
+                listOfDeletedContacts = listOfDeletedContacts + ", " + personToDelete.getName();
+            }
 
             try {
                 model.deletePerson(personToDelete);
+                queue.offer(personToDelete);
             } catch (PersonNotFoundException pnfe) {
                 assert false : "The target person cannot be missing";
             }
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, listOfDeletedContacts)); //return new CommandResult(listOfDeletedContacts)
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, listOfDeletedContacts));
     }
 
     @Override
@@ -60,5 +72,12 @@ public class DeleteMultipleCommand extends UndoableCommand {
         return other == this // short circuit if same object
                 || (other instanceof DeleteMultipleCommand // instanceof handles nulls
                 && this.arrayOfIndex.equals(((DeleteMultipleCommand) other).arrayOfIndex)); // state check
+    }
+
+    @Override
+    public void setData(Model model, CommandHistory commandHistory,
+                        UndoRedoStack undoRedoStack, RecentlyDeletedQueue queue) {
+        this.model = model;
+        this.queue = queue;
     }
 }
