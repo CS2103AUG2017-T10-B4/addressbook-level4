@@ -95,7 +95,37 @@ public class RemarkCommand extends UndoableCommand {
 
 }
 ```
-###### \java\seedu\address\logic\parser\CliSyntax.java
+###### /java/seedu/address/logic/commands/SortCommand.java
+``` java
+/**
+ * Sorts the address book by name
+ */
+public class SortCommand extends Command {
+
+    public static final String COMMAND_WORD = "sort";
+    public static final String COMMAND_ALIAS = "s";
+    public static final String MESSAGE_SUCCESS = "List is sorted!";
+    public static final String MESSAGE_EMPTY_LIST = "List is empty!";
+
+    private ArrayList<ReadOnlyPerson> personList;
+
+    public SortCommand() {
+        personList = new ArrayList<>();
+    }
+
+    @Override
+    public CommandResult execute() {
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
+        Boolean listSize = model.sortPersonList(personList);
+        if (listSize == null) {
+            return new CommandResult(MESSAGE_EMPTY_LIST);
+        }
+
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+}
+```
+###### /java/seedu/address/logic/parser/CliSyntax.java
 ``` java
     public static final Prefix PREFIX_OCCUPATION = new Prefix("o/");
 ```
@@ -165,7 +195,33 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
     }
 }
 ```
-###### \java\seedu\address\model\person\Occupation.java
+###### /java/seedu/address/model/Model.java
+``` java
+    Boolean sortPersonList(ArrayList<ReadOnlyPerson> personList);
+
+}
+```
+###### /java/seedu/address/model/ModelManager.java
+``` java
+    @Override
+    public Boolean sortPersonList(ArrayList<ReadOnlyPerson> personList) {
+        if (filteredPersons.isEmpty()) {
+            return false;
+        }
+        personList.addAll(filteredPersons);
+        Collections.sort(personList, Comparator.comparing(name -> name.toString().toLowerCase()));
+
+        try {
+            addressBook.setPersons(personList);
+            indicateAddressBookChanged();
+        } catch (DuplicatePersonException e) {
+            System.out.println("Address book should not have duplicate persons");
+        }
+
+        return true;
+    }
+```
+###### /java/seedu/address/model/person/Occupation.java
 ``` java
 /**
  * Represents a Person's occupation in the address book.
@@ -240,7 +296,37 @@ public class Occupation {
         return occupation.get();
     }
 ```
-###### \java\seedu\address\model\person\Remark.java
+###### /java/seedu/address/model/person/Person.java
+``` java
+    public void setRemark(Remark remark) {
+        this.remark.set(requireNonNull(remark));
+    }
+
+    @Override
+    public ObjectProperty<Remark> remarkProperty() {
+        return remark;
+    }
+
+    @Override
+    public Remark getRemark() {
+        return remark.get();
+    }
+
+    public void setWebsite(Website website) {
+        this.website.set(requireNonNull(website));
+    }
+
+    @Override
+    public ObjectProperty<Website> websiteProperty() {
+        return website;
+    }
+
+    @Override
+    public Website getWebsite() {
+        return website.get();
+    }
+```
+###### /java/seedu/address/model/person/Remark.java
 ``` java
 /**
  *  Represents a Person's remark in the address book.
