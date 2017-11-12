@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.RecentlyDeletedQueue;
 import seedu.address.logic.UndoRedoStack;
@@ -27,7 +28,8 @@ public class SortCommandTest {
         model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         sortCommand = new SortCommand();
-        sortCommand.setData(model, new CommandHistory(), new UndoRedoStack(), new RecentlyDeletedQueue());
+        sortCommand.setData(model, new CommandHistory(), new UndoRedoStack(),
+                new RecentlyDeletedQueue(), "DarkTheme.css");
     }
 
     /**
