@@ -128,7 +128,36 @@ public class RemarkCommandTest {
     }
 }
 ```
+###### \java\seedu\address\logic\commands\SortCommandTest.java
+``` java
+/**
+ * Contains integration tests (interaction with the Model) and unit tests for SortCommand.
+ */
+public class SortCommandTest {
+
+    private Model model;
+    private Model expectedModel;
+    private SortCommand sortCommand;
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        sortCommand = new SortCommand();
+        sortCommand.setData(model, new CommandHistory(), new UndoRedoStack(), new RecentlyDeletedQueue());
+    }
+
+    /**
+     * Sorts address book by name
+     */
+    @Test
+    public void execute_sortPersonList() {
+        assertCommandSuccess(sortCommand, model, SortCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+}
+```
 ###### \java\seedu\address\logic\parser\AddressBookParserTest.java
+
 ``` java
     @Test
     public void parseCommand_remark() throws Exception {
