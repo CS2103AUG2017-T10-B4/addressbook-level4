@@ -22,7 +22,7 @@ public class ThemeCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        String themeToChange = (theme == "DarkTheme.css") ? "LightTheme.css" : "DarkTheme.css";
+        String themeToChange = (theme.equals("DarkTheme.css")) ? "LightTheme.css" : "DarkTheme.css";
 
         EventsCenter.getInstance().post(new ThemeRequestEvent(themeToChange));
 
