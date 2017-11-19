@@ -84,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    //@@author JavynThun
     @Override
     public Boolean sortPersonList(ArrayList<ReadOnlyPerson> personlist) {
         if (filteredPersons.isEmpty()) {
@@ -99,6 +100,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         return true;
     }
+    //@@author
 
     //=========== Filtered Person List Accessors =============================================================
 

@@ -41,7 +41,7 @@ public interface AddressBookStorage {
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException;
 
-    //@@author
+    //@@author vmlimshimin
     void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
 }

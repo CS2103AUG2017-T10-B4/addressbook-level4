@@ -8,7 +8,7 @@ TheYellowPage is a desktop address book application designed with the needs of o
 
 *Code contributed*: [https://github.com/CS2103AUG2017-T10-B4/main/blob/master/collated/main/TravisPhey.md[Functional Code]] [https://github.com/CS2103AUG2017-T10-B4/main/blob/master/collated/test/TravisPhey.md[Test Code]] {give links to collated code files}
 
-=== 1st Enhancement Added: DeleteMultipleCommand
+=== Enhancement Added: DeleteMultipleCommand
 
 ==== External behavior
 
@@ -35,37 +35,6 @@ The DeleteMultipleCommand feature allows HR agents to clear off multiple contact
 #Start of Extract [from: Developer Guide]#
 
 include::../DeveloperGuide.adoc[tag=deleteMultipleCommand]
-
-#End of Extract#
-
----
-
-=== 2nd Enhancement added: Find Command
-
-==== External behaviour
----
-#Start of Extract [from: User Guide]#
-
-include::../UserGuide.adoc[tag=FindCommand]
-
-#End of Extract#
-
----
-
-=== Justification of 2nd Enhancement
-
-As TheYellowPage is designed with the typical office worker/Human Resource agent in mind, the features implemented are meant to make their work processes more efficient.
-
-The original find command only allows the user to find the contact by their name. However, when taken into context of the HR agent, the HR agent may sometimes only know a contact by their company name, company address or company phone number. Thus, finding a contact by name may not be as feasible.
-
-The new Find Command feature allows HR agents to find the contacts they want via their name, address, number, email, occupation, company name or company website. This is more efficient as the HR agent will be able to find the contact they want more easily.
-
-=== Implementation of 2nd Enhancement
-
----
-#Start of Extract [from: Developer Guide]#
-
-include::../DeveloperGuide.adoc[tag=FindCommand]
 
 #End of Extract#
 

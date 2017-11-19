@@ -52,11 +52,15 @@ public class DeleteMultipleCommand extends UndoableCommand {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
 
+            /*if (targetIndex.getZeroBased() <= 0) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }*/
+
             ReadOnlyPerson personToDelete = lastShownList.get(targetIndex.getZeroBased());
             if (n == 0) {
-                listOfDeletedContacts = listOfDeletedContacts + personToDelete.getName();
+                listOfDeletedContacts = listOfDeletedContacts + personToDelete;
             } else {
-                listOfDeletedContacts = listOfDeletedContacts + ", " + personToDelete.getName();
+                listOfDeletedContacts = listOfDeletedContacts + ", " + personToDelete;
             }
 
             try {
@@ -80,95 +84,11 @@ public class DeleteMultipleCommand extends UndoableCommand {
     }
 
 ```
-###### \java\seedu\address\logic\commands\FindCommand.java
-``` java
-package seedu.address.logic.commands;
-
-import seedu.address.model.person.FindCommandPredicate;
-
-/**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case sensitive.
- */
-public class FindCommand extends Command {
-
-    public static final String COMMAND_WORD = "find";
-    public static final String COMMAND_ALIAS = "fi";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
-
-    private final FindCommandPredicate predicate;
-
-    public FindCommand(FindCommandPredicate predicate) {
-        this.predicate = predicate;
-    }
-
-    @Override
-    public CommandResult execute() {
-        model.updateFilteredPersonList(predicate);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof FindCommand // instanceof handles nulls
-                && this.predicate.equals(((FindCommand) other).predicate)); // state check
-    }
-}
-```
-###### \java\seedu\address\logic\commands\FindNumberCommand.java
-``` java
-package seedu.address.logic.commands;
-
-import seedu.address.model.person.NumberContainsKeywordsPredicate;
-
-/**
- * Finds and lists all persons in address book whose number contains any of the argument keywords.
- */
-
-public class FindNumberCommand extends Command {
-
-    public static final String COMMAND_WORD = "findnum";
-    public static final String COMMAND_ALIAS = "fin";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose numbers contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " 98765432 12345678 61772655";
-
-    private final NumberContainsKeywordsPredicate predicate;
-
-    public FindNumberCommand(NumberContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
-    }
-
-    @Override
-    public CommandResult execute() {
-        model.updateFilteredPersonList(predicate);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof FindNumberCommand // instanceof handles nulls
-                && this.predicate.equals(((FindNumberCommand) other).predicate)); // state check
-    }
-}
-```
 ###### \java\seedu\address\logic\parser\AddressBookParser.java
 ``` java
         case DeleteMultipleCommand.COMMAND_WORD:
         case DeleteMultipleCommand.COMMAND_ALIAS:
             return new DeleteMultipleCommandParser().parse(arguments);
-```
-###### \java\seedu\address\logic\parser\AddressBookParser.java
-``` java
-        case FindNumberCommand.COMMAND_WORD:
-        case FindNumberCommand.COMMAND_ALIAS:
-            return new FindNumberCommandParser().parse(arguments);
 ```
 ###### \java\seedu\address\logic\parser\DeleteMultipleCommandParser.java
 ``` java
@@ -190,8 +110,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class DeleteMultipleCommandParser implements Parser<DeleteMultipleCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns an FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteMultipleCommand
+     * and returns an DeleteMultipleCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteMultipleCommand parse(String args) throws ParseException {
@@ -208,178 +128,17 @@ public class DeleteMultipleCommandParser implements Parser<DeleteMultipleCommand
         for (int n = 0; n < list.size(); n++) {
             String indexString = list.get(n);
             int foo = Integer.parseInt(indexString) - 1;
-            Index index = new Index(foo);
-            arrayOfIndex.add(index);
+            Index index;
+            try {
+                index = new Index(foo);
+                arrayOfIndex.add(index);
+            } catch (IndexOutOfBoundsException iob) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteMultipleCommand.MESSAGE_USAGE));
+            }
         }
 
         return new DeleteMultipleCommand(arrayOfIndex);
-    }
-}
-```
-###### \java\seedu\address\logic\parser\FindCommandParser.java
-``` java
-package seedu.address.logic.parser;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import java.util.Arrays;
-
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.FindCommandPredicate;
-
-/**
- * Parses input arguments and creates a new FindCommand object
- */
-public class FindCommandParser implements Parser<FindCommand> {
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns an FindCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public FindCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        }
-
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-        //String[] nameKeywords = trimmedArgs;
-
-        return new FindCommand(new FindCommandPredicate(Arrays.asList(nameKeywords)));
-    }
-
-}
-```
-###### \java\seedu\address\logic\parser\FindNumberCommandParser.java
-``` java
-package seedu.address.logic.parser;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-import java.util.Arrays;
-
-import seedu.address.logic.commands.FindNumberCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NumberContainsKeywordsPredicate;
-
-/**
- * Parses input arguments and creates a new FindNumberCommand object
- */
-
-public class FindNumberCommandParser implements Parser<FindNumberCommand> {
-    /**
-     * Parses the given {@code String} of arguments in the context of the FindNumberCommand
-     * and returns an FindNumberCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public FindNumberCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindNumberCommand.MESSAGE_USAGE));
-        }
-
-        String[] nameKeywords = trimmedArgs.split("\\s+");
-
-        return new FindNumberCommand(new NumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-    }
-}
-```
-
-###### \java\seedu\address\model\person\FindCommandPredicate.java
-``` java
-package seedu.address.model.person;
-
-import java.util.List;
-import java.util.function.Predicate;
-
-import seedu.address.commons.util.StringUtil;
-
-/**
- * Tests that a {@code ReadOnlyPerson}'s {@code name, number, address, email} matches any of the keywords given.
- * Tests that a {@code ReadOnlyPerson}'s {@code occupation, website, remark} matches any of the keywords given.
- */
-public class FindCommandPredicate implements Predicate<ReadOnlyPerson> {
-    private final List<String> keywords;
-
-    public FindCommandPredicate(List<String> keywords) {
-        this.keywords = keywords;
-    }
-
-    @Override
-    public boolean test(ReadOnlyPerson person) {
-        boolean name = keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
-
-        boolean number = keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
-
-        boolean address = keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getAddress().toString(), keyword));
-
-        boolean email = keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getEmail().toString(), keyword));
-
-        boolean occupation = keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getOccupation().toString(), keyword));
-
-        boolean website = keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getWebsite().toString(), keyword));
-
-        boolean remark = keywords.stream()
-            .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getRemark().toString(), keyword));
-
-        if (name || number || address || email || occupation || website || remark) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-            || (other instanceof FindCommandPredicate // instanceof handles nulls
-            && this.keywords.equals(((FindCommandPredicate) other).keywords)); // state check
-    }
-
-}
-```
-
-###### \java\seedu\address\model\person\NumberContainsKeywordsPredicate.java
-``` java
-package seedu.address.model.person;
-
-import java.util.List;
-import java.util.function.Predicate;
-
-import seedu.address.commons.util.StringUtil;
-
-/**
- * Tests that a {@code ReadOnlyPerson}'s {@code Number} matches any of the keywords given.
- */
-
-public class NumberContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
-    private final List<String> keywords;
-
-    public NumberContainsKeywordsPredicate(List<String> keywords) {
-        this.keywords = keywords;
-    }
-
-    @Override
-    public boolean test(ReadOnlyPerson person) {
-        return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof NumberContainsKeywordsPredicate // instanceof handles nulls
-                && this.keywords.equals(((NumberContainsKeywordsPredicate) other).keywords)); // state check
     }
 }
 ```

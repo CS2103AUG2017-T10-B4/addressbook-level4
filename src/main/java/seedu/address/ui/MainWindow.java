@@ -209,7 +209,7 @@ public class MainWindow extends UiPart<Region> {
         primaryStage.show();
     }
 
-    //@@author
+    //@@author vmlimshimin
     /**
      * Selects the theme given by user input
      */
@@ -243,7 +243,7 @@ public class MainWindow extends UiPart<Region> {
         handleHelp();
     }
 
-    //@@author
+    //@@author vmlimshimin
     @Subscribe
     private void handleSelectThemeEvent(ThemeRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

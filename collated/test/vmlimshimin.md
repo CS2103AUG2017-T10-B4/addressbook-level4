@@ -1,5 +1,5 @@
 # vmlimshimin
-###### /java/seedu/address/logic/commands/RecentlyDeletedCommandTest.java
+###### \java\seedu\address\logic\commands\RecentlyDeletedCommandTest.java
 ``` java
 package seedu.address.logic.commands;
 

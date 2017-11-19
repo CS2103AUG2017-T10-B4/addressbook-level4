@@ -51,7 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
-    //@@author
+    //@@author vmlimshimin
     /**
      * Initialises the themes in this {@code AddressBook}.
      */

@@ -17,8 +17,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 public class DeleteMultipleCommandParser implements Parser<DeleteMultipleCommand> {
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns an FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the DeleteMultipleCommand
+     * and returns an DeleteMultipleCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteMultipleCommand parse(String args) throws ParseException {

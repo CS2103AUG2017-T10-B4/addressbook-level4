@@ -1,4 +1,4 @@
-//@@author TravisPhey
+//@@author
 package seedu.address.model.person;
 
 import java.util.List;

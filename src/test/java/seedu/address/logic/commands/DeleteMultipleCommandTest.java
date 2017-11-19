@@ -1,4 +1,4 @@
-//@@author TravisPhey
+//@@author
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
@@ -30,22 +30,28 @@ public class DeleteMultipleCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
         ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        //@@author TravisPhey
         DeleteMultipleCommand deleteMultipleCommand = prepareCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteMultipleCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        //@@author TravisPhey
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
+        //@@author TravisPhey
         assertCommandSuccess(deleteMultipleCommand, model, expectedMessage, expectedModel);
+        //@@author TravisPhey
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        //@@author TravisPhey
         DeleteMultipleCommand deleteMultipleCommand = prepareCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteMultipleCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        //@@author TravisPhey
     }
 
     @Test
@@ -53,15 +59,19 @@ public class DeleteMultipleCommandTest {
         showFirstPersonOnly(model);
 
         ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        //@@author TravisPhey
         DeleteMultipleCommand deleteMultipleCommand = prepareCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteMultipleCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+        //@@author TravisPhey
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
         showNoPerson(expectedModel);
 
+        //@@author TravisPhey
         assertCommandSuccess(deleteMultipleCommand, model, expectedMessage, expectedModel);
+        //@@author TravisPhey
     }
 
     @Test
@@ -72,11 +82,14 @@ public class DeleteMultipleCommandTest {
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
+        //@@author TravisPhey
         DeleteMultipleCommand deleteMultipleCommand = prepareCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteMultipleCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        //@@author TravisPhey
     }
 
+    //@@author TravisPhey
     @Test
     public void equals() {
         ArrayList<Index> IndexFirstList = new ArrayList<>();
@@ -103,10 +116,12 @@ public class DeleteMultipleCommandTest {
         // different person -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
+    //@@author TravisPhey
 
     /**
      * Returns a {@code DeleteCommand} with the parameter {@code index}.
      */
+    //@@author TravisPhey
     private DeleteMultipleCommand prepareCommand(Index index) {
         ArrayList<Index> IndexList = new ArrayList<>();
         IndexList.add(index);
@@ -115,6 +130,7 @@ public class DeleteMultipleCommandTest {
             new UndoRedoStack(), new RecentlyDeletedQueue(), new String());
         return deleteMultipleCommand;
     }
+    //@@author TravisPhey
 
     /**
      * Updates {@code model}'s filtered list to show no one.

@@ -47,8 +47,8 @@ public class LogicManager extends ComponentManager implements Logic {
             //@@author vmlimshimin
             command.setData(model, history, undoRedoStack, queue, theme);
             if (commandText.equals("theme")) {
-                String oldTheme = theme;
-                if (oldTheme.equals("DarkTheme.css")) {
+                String newTheme = theme;
+                if (newTheme.equals("DarkTheme.css")) {
                     theme = "LightTheme.css";
                 } else {
                     theme = "DarkTheme.css";
