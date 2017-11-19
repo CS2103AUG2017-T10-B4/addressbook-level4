@@ -84,11 +84,56 @@ public class DeleteMultipleCommand extends UndoableCommand {
     }
 
 ```
+###### \java\seedu\address\logic\commands\FindNumberCommand.java
+``` java
+package seedu.address.logic.commands;
+
+import seedu.address.model.person.NumberContainsKeywordsPredicate;
+
+/**
+ * Finds and lists all persons in address book whose number contains any of the argument keywords.
+ */
+
+public class FindNumberCommand extends Command {
+
+    public static final String COMMAND_WORD = "findnum";
+    public static final String COMMAND_ALIAS = "fin";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose numbers contain any of "
+            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "Example: " + COMMAND_WORD + " 98765432 12345678 61772655";
+
+    private final NumberContainsKeywordsPredicate predicate;
+
+    public FindNumberCommand(NumberContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
+    }
+
+    @Override
+    public CommandResult execute() {
+        model.updateFilteredPersonList(predicate);
+        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FindNumberCommand // instanceof handles nulls
+                && this.predicate.equals(((FindNumberCommand) other).predicate)); // state check
+    }
+}
+```
 ###### \java\seedu\address\logic\parser\AddressBookParser.java
 ``` java
         case DeleteMultipleCommand.COMMAND_WORD:
         case DeleteMultipleCommand.COMMAND_ALIAS:
             return new DeleteMultipleCommandParser().parse(arguments);
+```
+###### \java\seedu\address\logic\parser\AddressBookParser.java
+``` java
+        case FindNumberCommand.COMMAND_WORD:
+        case FindNumberCommand.COMMAND_ALIAS:
+            return new FindNumberCommandParser().parse(arguments);
 ```
 ###### \java\seedu\address\logic\parser\DeleteMultipleCommandParser.java
 ``` java
@@ -139,6 +184,75 @@ public class DeleteMultipleCommandParser implements Parser<DeleteMultipleCommand
         }
 
         return new DeleteMultipleCommand(arrayOfIndex);
+    }
+}
+```
+###### \java\seedu\address\logic\parser\FindNumberCommandParser.java
+``` java
+package seedu.address.logic.parser;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.util.Arrays;
+
+import seedu.address.logic.commands.FindNumberCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.NumberContainsKeywordsPredicate;
+
+/**
+ * Parses input arguments and creates a new FindNumberCommand object
+ */
+
+public class FindNumberCommandParser implements Parser<FindNumberCommand> {
+    /**
+     * Parses the given {@code String} of arguments in the context of the FindNumberCommand
+     * and returns an FindNumberCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public FindNumberCommand parse(String args) throws ParseException {
+        String trimmedArgs = args.trim();
+        if (trimmedArgs.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindNumberCommand.MESSAGE_USAGE));
+        }
+
+        String[] nameKeywords = trimmedArgs.split("\\s+");
+
+        return new FindNumberCommand(new NumberContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+    }
+}
+```
+###### \java\seedu\address\model\person\NumberContainsKeywordsPredicate.java
+``` java
+package seedu.address.model.person;
+
+import java.util.List;
+import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
+
+/**
+ * Tests that a {@code ReadOnlyPerson}'s {@code Number} matches any of the keywords given.
+ */
+
+public class NumberContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
+    private final List<String> keywords;
+
+    public NumberContainsKeywordsPredicate(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    @Override
+    public boolean test(ReadOnlyPerson person) {
+        return keywords.stream()
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().value, keyword));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof NumberContainsKeywordsPredicate // instanceof handles nulls
+                && this.keywords.equals(((NumberContainsKeywordsPredicate) other).keywords)); // state check
     }
 }
 ```
