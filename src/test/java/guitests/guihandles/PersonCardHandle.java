@@ -77,11 +77,11 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return emailLabel.getText();
     }
 
-    //@@author JavynThun
     public String getRemark() {
         return remarkLabel.getText();
     }
 
+    //@@author JavynThun
     public String getWebsite() {
         return websiteLabel.getText();
     }

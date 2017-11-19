@@ -94,7 +94,6 @@ public class ParserUtil {
         return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
     }
 
-    //@@author JavynThun
     /**
      * Parses a {@code Optional<String> remark} into an {@code Optional<Remark>} if {@code remark} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
@@ -104,6 +103,7 @@ public class ParserUtil {
         return remark.isPresent() ? Optional.of(new Remark(remark.get())) : Optional.empty();
     }
 
+    //@@author JavynThun
     /**
      * Parses a {@code Optional<String> website} into an {@code Optional<Website>} if {@code website} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.

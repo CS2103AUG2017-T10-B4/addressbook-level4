@@ -34,5 +34,6 @@ endif::[]
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
+* Remark command was added based on the steps given in the developer guide.
 
 == Licence : link:LICENSE[MIT]
