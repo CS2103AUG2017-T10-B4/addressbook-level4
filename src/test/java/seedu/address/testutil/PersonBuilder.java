@@ -129,7 +129,7 @@ public class PersonBuilder {
         return this;
     }
 
-    //@@author JavynThun
+    //@@author
     /**
      *  Sets the {@code Remark} of the {@code Person} that we are building.
      */
@@ -138,6 +138,7 @@ public class PersonBuilder {
         return this;
     }
 
+    //@@author JavynThun
     /**
      *  Sets the {@code Website} of the {@code Person} that we are building.
      */

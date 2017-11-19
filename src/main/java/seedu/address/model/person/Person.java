@@ -158,7 +158,7 @@ public class Person implements ReadOnlyPerson {
         return address.get();
     }
 
-    //@@author JavynThun
+    //@@author
     public void setRemark(Remark remark) {
         this.remark.set(requireNonNull(remark));
     }
@@ -173,6 +173,7 @@ public class Person implements ReadOnlyPerson {
         return remark.get();
     }
 
+    //@@author JavynThun
     public void setWebsite(Website website) {
         this.website.set(requireNonNull(website));
     }

@@ -73,7 +73,7 @@ public class AddressBookParserTest {
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
-    //@@author JavynThun
+    //@@author
     @Test
     public void parseCommand_remark() throws Exception {
         final Remark remark = new Remark("Some remark.");

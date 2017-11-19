@@ -36,5 +36,6 @@ endif::[]
 _Marco Jakob_.
 * Certain features of TheYellowPage have been developed with the base code originating from the AddressBook https://github.com/nus-cs2103-AY1718S1/addressbook-level4[level 4].
 * We would like to thank the AddressBook https://github.com/nus-cs2103-AY1718S1/addressbook-level4[level 4] team for putting in place the basic features and code base for the use of this project.
+* Remark command was added based on the steps given in the developer guide.
 
 == Licence : link:LICENSE[MIT]
